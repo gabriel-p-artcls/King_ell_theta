@@ -4,10 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-path = "../2_pipeline/"
+# Select run number
 run = 3
+
+path = "../2_pipeline/"
 asteca_data = path + "asteca_output_synth_{}.dat".format(run)
-SVD_data = path + "SVD_results_{}/SVD_results_{}.dat".format(run, run)
+SVD_path = f"SVD_results_{run}/"
+SVD_data = path + SVD_path + f"SVD_results_{run}.dat"
 
 
 def main():
@@ -16,18 +19,14 @@ def main():
     synthetic clusters with varying King profiles.
     """
     # plt.style.use('science')
-    for flag in (True, False):
-        figsize_x, figsize_y = 15, 8
-        fig = plt.figure(figsize=(figsize_x, figsize_y))
-        SVDvsTrue(flag)
-        # ASteCAvsTrue()
 
-        fig.tight_layout()
-        if flag:
-            plt.savefig(path + "w_outliers.png", dpi=300)
-        else:
-            plt.savefig(path + "no_outliers.png", dpi=300)
-        breakpoint()
+    figsize_x, figsize_y = 15, 8
+    fig = plt.figure(figsize=(figsize_x, figsize_y))
+    SVDvsTrue()
+    ASteCAvsTrue()
+
+    fig.tight_layout()
+    plt.savefig(path + SVD_path + "w_outliers.png", dpi=300)
 
 
 def ASteCAvsTrue():
@@ -73,7 +72,7 @@ def ASteCAvsTrue():
     plt.ylabel("ell_theta")
 
 
-def SVDvsTrue(plotOutliers):
+def SVDvsTrue():
     """
     """
     data = ascii.read(SVD_data)
@@ -86,37 +85,37 @@ def SVDvsTrue(plotOutliers):
     #         data['file'][i], th, data['theta'][i], a_diff[i]))
 
     plt.subplot(221)
-    if plotOutliers is False:
-        plt.title("SVD (no outliers)")
-        adiff_1 = angleDiff(theta_t_deg, data['theta'])
-        plt.scatter(data['kpc'], adiff_1, alpha=.6, c=data['ell_t'])
-        plt.axhline(np.mean(adiff_1), c='r')
-        plt.ylim(0, 90)
-    else:
-        plt.title("SVD (with outliers)")
-        # with outliers
-        adiff_2 = angleDiff(theta_t_deg, data['theta_o'])
-        plt.scatter(data['kpc'], adiff_2, alpha=.6, c=data['ell_t'])
-        plt.axhline(np.mean(adiff_2), c='r')
-        plt.ylim(0, 90)
+    # if plotOutliers is False:
+    #     plt.title("SVD (no outliers)")
+    #     adiff_1 = angleDiff(theta_t_deg, data['theta'])
+    #     plt.scatter(data['kpc'], adiff_1, alpha=.6, c=data['ell_t'])
+    #     plt.axhline(np.mean(adiff_1), c='r')
+    #     plt.ylim(0, 90)
+    # else:
+    plt.title("SVD")
+    # with outliers
+    adiff_2 = angleDiff(theta_t_deg, data['theta'])
+    plt.scatter(data['kpc'], adiff_2, alpha=.6, c=data['ell_t'])
+    plt.axhline(np.mean(adiff_2), c='r')
+    plt.ylim(0, 90)
     plt.colorbar()
     plt.xlabel("kpc")
     plt.ylabel("delta_theta")
 
     plt.subplot(222)
-    if plotOutliers is False:
-        plt.title("SVD (no outliers)")
-        # plt.scatter(theta_t_deg, data['theta'], alpha=.6, c='g')
-        plt.scatter(data['kpc'], abs(data['ell_t'] - data['ell']), alpha=.6,
-                    c=data['ell_t'])
-        plt.axhline(np.median(abs(data['ell_t'] - data['ell'])), c='r')
-    else:
-        plt.title("SVD (with outliers)")
-        # with outliers
-        # plt.scatter(theta_t_deg, data['theta_o'], alpha=.6, c='r')
-        plt.scatter(data['kpc'], abs(data['ell_t'] - data['ell_o']),
-                    alpha=.6, c=data['ell_t'])
-        plt.axhline(np.median(abs(data['ell_t'] - data['ell_o'])), c='r')
+    # if plotOutliers is False:
+    #     plt.title("SVD (no outliers)")
+    #     # plt.scatter(theta_t_deg, data['theta'], alpha=.6, c='g')
+    #     plt.scatter(data['kpc'], abs(data['ell_t'] - data['ell']), alpha=.6,
+    #                 c=data['ell_t'])
+    #     plt.axhline(np.median(abs(data['ell_t'] - data['ell'])), c='r')
+    # else:
+    plt.title("SVD")
+    # with outliers
+    # plt.scatter(theta_t_deg, data['theta_o'], alpha=.6, c='r')
+    plt.scatter(data['kpc'], abs(data['ell_t'] - data['ell']),
+                alpha=.6, c=data['ell_t'])
+    plt.axhline(np.median(abs(data['ell_t'] - data['ell'])), c='r')
     plt.colorbar()
     plt.ylim(-0.01, 0.95)
     plt.xlabel("kpc")

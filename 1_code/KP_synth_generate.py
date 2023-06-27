@@ -11,14 +11,17 @@ rt_fix = 1.
 N_grid = 5
 N_repeat = 2
 N_clust = 200
-# Range percentage of outliers
-outl_perc = (4.95, 5.05)
 CI = 0.5
 ell_min, ell_max = 0.2, 0.8
+
+# Range percentage of outliers
+outl_perc = (4.95, 5.05)
 # Number of 'rt_fix' that delimitate the area where outliers are generated
 r_max_outl = 1.
 
-out_path = "../0_data/KP_synth_3/"
+# Assign a number to the run to differentiate from other runs
+run = 3
+out_path = f"../0_data/KP_synth_{run}/"
 
 
 def main():

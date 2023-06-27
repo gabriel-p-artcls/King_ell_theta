@@ -10,10 +10,9 @@ This project began on June 2022.
 1. Process large files 
 
 
+## Cantat-Gaudin data
 
-## Input data
-
-### Cantat-Gaudin & Anders (2020)
+* Cantat-Gaudin & Anders (2020):
 
 1481 clusters (435833 stars with P>0.01); G_max=18
 
@@ -36,35 +35,37 @@ Max    = 3646 stars per cluster (NGC_7789)
 Min    = 14 stars per cluster (DBSB_21)
 
 
-### Cantat-Gaudin et al. (2020)
+* Cantat-Gaudin et al. (2020)
 
 2017 clusters (234129 stars with P>0.7); parameters for 1867.
+
 Mean = 125 stars per cluster (234129/1867)
 
-* r>30'  : 138 clusters
-* d<1kpc : 245 clusters
 
-* Sol processes 1634 clusters with r<30' & d>1kpc
-* I process 383 clusters: 138 with r>30' and 245 with d<1kpc
+## Synthetic data
 
-1. What is the G limit used?
-  The hard limit is 18, but there are a 15 stars up to ~19.6. These belong to
-  Hyades/Melotte 25 (9) and Melotte 111 (6)
-2. How were very large clusters processed?
-  They were not processed with UPMASK. This is explained in Sect 2.1.
-
-
-### Synthetic data
-
-Tested 4 sets of synthetic King profiles to test SVD vs ASteCA with the following parameters:
+Tested 4 sets of synthetic King profiles to test SVD vs ASteCA with the
+following parameters:
 
  0. outl_perc=(10, 25); r_max_outl=1.5
  1. outl_perc=(5, 20) ; r_max_outl=1.
  2. outl_perc=(5, 10) ; r_max_outl=1.
  3. outl_perc=5       ; r_max_outl=1.
 
-For all the sets these parameters are fixed: N_memb=200; ell_min=0.2, ell_max=0.8; CI=0.5.
+For all the sets these parameters are fixed: N_memb=200; ell_min=0.2,
+ell_max=0.8; CI=0.5.
 
 Results of this analysis: not even in the most favorable run (3) is the SVD
 method able to match the performance of ASteCA for either of the fitted
 parameters.
+
+
+## Input data
+
+Sol 1613 processed with `rad=10*r_50`, and the following filters applied:
+
+0. Only for frames with >1000 stars
+1. Plx filter: +/- 0.25 (using CG20 mean values)
+2. PMs filter: +/- 1 (using CG20 mean values)
+3. Center (lon, lat) in ASteCA fixed to CG20 values
+4. Auto ASteCA radius

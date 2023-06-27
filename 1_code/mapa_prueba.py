@@ -4,9 +4,9 @@ import numpy as np
 from astropy.coordinates import Angle
 from astropy import units as u
 
-data = ascii.read('./hu_et_al/deciphering.dat')
+data = ascii.read('../0_data/hu_et_al/deciphering.dat')
 
-data2 = ascii.read('./hu_et_al/decoding.dat', delimiter=';')
+data2 = ascii.read('../0_data/hu_et_al/decoding.dat', delimiter=';')
 # Match name formatting with 'data'
 d2_names = [_.replace('_', '') for _ in list(data2['Cluster'].value)]
 

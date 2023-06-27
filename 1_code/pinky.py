@@ -3,6 +3,8 @@ import numpy as np
 from scipy.interpolate import interp1d, interp2d
 
 """
+Generate Random Numbers from a 2D Discrete Distribution
+
 Author: Pablo Romano (https://github.com/pgromano)
 
 Source: https://github.com/pgromano/pinky
